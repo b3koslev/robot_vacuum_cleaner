@@ -8,7 +8,7 @@ namespace robot_vacuum_cleaner
 {
     internal class Program
     {
-        static void ModelGeneration()
+        static int[,] ModelGeneration()
         {
             int lines, columns;
             do 
@@ -20,7 +20,10 @@ namespace robot_vacuum_cleaner
             } while ((lines == columns) || (lines > 30 || lines < 20) ||(columns > 30 || columns < 20));
 
             int[,] houseModel = new int[lines, columns];
+
+            return houseModel;
         }
+
         static void Main(string[] args)
         {
             ModelGeneration();
