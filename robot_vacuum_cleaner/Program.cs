@@ -8,7 +8,7 @@ namespace robot_vacuum_cleaner
 {
     internal class Program
     {
-        static int[,] ModelGeneration()
+        static string[,] ModelGeneration()
         {
             int lines, columns;
             do 
@@ -19,14 +19,14 @@ namespace robot_vacuum_cleaner
                 columns = Convert.ToInt32(Console.ReadLine());
             } while ((lines == columns) || (lines > 30 || lines < 20) ||(columns > 30 || columns < 20));
 
-            int[,] houseModel = new int[lines, columns];
+            string[,] houseModel = new string[lines, columns];
 
             return houseModel;
         }
 
-        static int[,] CreateModel(int[,] houseModel)
+        static string[,] CreateModel(string[,] houseModel)
         {
-            int[,] house = houseModel;
+            string[,] house = houseModel;
             Random random = new Random();
 
             for (int i = 0; i < house.GetLength(0); i++)
@@ -36,15 +36,15 @@ namespace robot_vacuum_cleaner
                     int number = random.Next(1, 11);
                     if (number >= 1 && number <= 5)
                     {
-                        house[i, j] = '-';
+                        house[i, j] = "-";
                     }
                     else if (number >= 6 && number <= 7)
                     {
-                        house[i, j] = 'b';
+                        house[i, j] = "b";
                     }
                     else if (number >= 8 && number <= 10)
                     {
-                        house[i, j] = 'k';
+                        house[i, j] = "k";
                     }
                 }
             }
@@ -52,10 +52,25 @@ namespace robot_vacuum_cleaner
             return house;
         }
 
+        static void WriteHouse(string[,] house)
+        {
+            Console.WriteLine();
+
+            for (int i = 0; i < house.GetLength(0); i++)
+            {
+                for (int j = 0; j < house.GetLength(1); j++)
+                {
+                    Console.Write(house[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
         static void Main(string[] args)
         {
-            int[,] houseModel = ModelGeneration();
-            int[,] house = CreateModel(houseModel);
+            string[,] houseModel = ModelGeneration();
+            string[,] house = CreateModel(houseModel);
+            WriteHouse(house);
         }
     }
 }
