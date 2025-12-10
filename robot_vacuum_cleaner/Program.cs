@@ -24,9 +24,38 @@ namespace robot_vacuum_cleaner
             return houseModel;
         }
 
+        static int[,] CreateModel(int[,] houseModel)
+        {
+            int[,] house = houseModel;
+            Random random = new Random();
+
+            for (int i = 0; i < house.GetLength(0); i++)
+            {
+                for (int j = 0; j < house.GetLength(1); j++)
+                {
+                    int number = random.Next(1, 11);
+                    if (number >= 1 && number <= 5)
+                    {
+                        house[i, j] = '-';
+                    }
+                    else if (number >= 6 && number <= 7)
+                    {
+                        house[i, j] = 'b';
+                    }
+                    else if (number >= 8 && number <= 10)
+                    {
+                        house[i, j] = 'k';
+                    }
+                }
+            }
+
+            return house;
+        }
+
         static void Main(string[] args)
         {
-            ModelGeneration();
+            int[,] houseModel = ModelGeneration();
+            int[,] house = CreateModel(houseModel);
         }
     }
 }
