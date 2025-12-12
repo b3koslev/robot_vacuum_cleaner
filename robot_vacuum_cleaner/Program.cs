@@ -28,6 +28,7 @@ namespace robot_vacuum_cleaner
         {
             string[,] house = houseModel;
             Random random = new Random();
+            bool robot = false;
 
             for (int i = 0; i < house.GetLength(0); i++)
             {
@@ -48,6 +49,29 @@ namespace robot_vacuum_cleaner
                     }
                 }
             }
+
+            do
+            {
+                Random random_number = new Random();
+
+                int row = random.Next(1, house.GetLength(0) + 1);
+                int column = random.Next(1, house.GetLength(1) + 1);
+
+                for (int i = 0; i < house.GetLength(0); i++)
+                {
+                    for (int j = 0; j < house.GetLength(1); j++)
+                    {
+                        if (row == i && column == j)
+                        {
+                            if (house[i, j] == "-")
+                            {
+                                house[i, j] = "r";
+                                robot = true;
+                            }
+                        }
+                    }
+                }
+            } while (robot == false);
 
             return house;
         }
