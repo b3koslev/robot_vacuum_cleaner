@@ -88,6 +88,108 @@ namespace robot_vacuum_cleaner
                 }
                 Console.WriteLine();
             }
+
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        static void Cleaning(string[,] house)
+        {
+            Random steps = new Random();
+            bool cleaned = false;
+
+            do
+            {
+
+                int step = steps.Next(1, 5);
+                string step_direction = "";
+
+                switch (step)
+                {
+                    case 1:
+                        step_direction = "up";
+                        break;
+                    case 2:
+                        step_direction = "down";
+                        break;
+                    case 3:
+                        step_direction = "left";
+                        break;
+                    case 4:
+                        step_direction = "right";
+                        break;
+                    default:
+                        step_direction = " ";
+                        break;
+                }
+
+                for (int i = 0; i < house.GetLength(0); i++)
+                {
+                    for (int j = 0; j < house.GetLength(1); j++)
+                    {
+                        if (step_direction == "down")
+                        {
+                            if (house[i + 1, j] == "b")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                house[i, j] = "-";
+                                house[i + 1, j] = "r";
+                            }
+                        }
+                        else if (step_direction == "up")
+                        {
+                            if (house[i - 1, j] == "b")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                house[i, j] = "-";
+                                house[i - 1, j] = "r";
+                            }
+                        }
+                        else if (step_direction == "right")
+                        {
+                            if (house[i, j + 1] == "b")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                house[i, j] = "-";
+                                house[i, j + 1] = "r";
+                            }
+                        }
+                        else if (step_direction == "left")
+                        {
+                            if (house[i, j - 1] == "b")
+                            {
+                                continue;
+                            }
+                            else
+                            { 
+                                house[i, j] = "-";
+                                house[i, j - 1] = "r";
+                            }
+                        }
+                    }
+                }
+
+                Console.ReadKey();
+                Console.Clear();
+
+                for (int i = 0; i < house.GetLength(0); i++)
+                {
+                    for (int j = 0; j < house.GetLength(1); j++)
+                    {
+                        Console.Write(house[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+            } while (!cleaned);
         }
 
         static void Main(string[] args)
@@ -95,6 +197,7 @@ namespace robot_vacuum_cleaner
             string[,] houseModel = ModelGeneration();
             string[,] house = CreateModel(houseModel);
             WriteHouse(house);
+            Cleaning(house);
         }
     }
 }
