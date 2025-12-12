@@ -129,7 +129,11 @@ namespace robot_vacuum_cleaner
                     {
                         if (step_direction == "down")
                         {
-                            if (house[i + 1, j] == "b")
+                            if (i == house.GetLength(0) - 1)
+                            {
+                                continue;
+                            }
+                            else if (house[i + 1, j] == "b")
                             {
                                 continue;
                             }
@@ -141,7 +145,11 @@ namespace robot_vacuum_cleaner
                         }
                         else if (step_direction == "up")
                         {
-                            if (house[i - 1, j] == "b")
+                            if (i == 0)
+                            {
+                                continue;
+                            }
+                            else if (house[i - 1, j] == "b")
                             {
                                 continue;
                             }
@@ -153,7 +161,11 @@ namespace robot_vacuum_cleaner
                         }
                         else if (step_direction == "right")
                         {
-                            if (house[i, j + 1] == "b")
+                            if (j == house.GetLength(1) - 1)
+                            {
+                                continue;
+                            }
+                            else if (house[i, j + 1] == "b")
                             {
                                 continue;
                             }
@@ -165,7 +177,11 @@ namespace robot_vacuum_cleaner
                         }
                         else if (step_direction == "left")
                         {
-                            if (house[i, j - 1] == "b")
+                            if (j == 0)
+                            {
+                                continue;
+                            }
+                            else if (house[i, j - 1] == "b")
                             {
                                 continue;
                             }
