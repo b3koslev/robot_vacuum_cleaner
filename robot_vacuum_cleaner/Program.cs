@@ -29,26 +29,33 @@ namespace robot_vacuum_cleaner
             string[,] house = houseModel;
             Random random = new Random();
             bool robot = false;
+            bool dirty = false;
+            bool clear = false;
 
-            for (int i = 0; i < house.GetLength(0); i++)
+            do
             {
-                for (int j = 0; j < house.GetLength(1); j++)
+                for (int i = 0; i < house.GetLength(0); i++)
                 {
-                    int number = random.Next(1, 11);
-                    if (number >= 1 && number <= 5)
+                    for (int j = 0; j < house.GetLength(1); j++)
                     {
-                        house[i, j] = "-";
-                    }
-                    else if (number >= 6 && number <= 7)
-                    {
-                        house[i, j] = "b";
-                    }
-                    else if (number >= 8 && number <= 10)
-                    {
-                        house[i, j] = "k";
+                        int number = random.Next(1, 11);
+                        if (number >= 1 && number <= 5)
+                        {
+                            house[i, j] = "-";
+                            clear = true;
+                        }
+                        else if (number >= 6 && number <= 7)
+                        {
+                            house[i, j] = "b";
+                        }
+                        else if (number >= 8 && number <= 10)
+                        {
+                            house[i, j] = "k";
+                            dirty = true;
+                        }
                     }
                 }
-            }
+            } while (dirty == false || clear == false);
 
             do
             {
@@ -144,69 +151,84 @@ namespace robot_vacuum_cleaner
                 {
                     for (int j = 0; j < house.GetLength(1); j++)
                     {
-                        if (step_direction == "down")
+                        if (house[i, j] == "r")
                         {
-                            if (i == house.GetLength(0) - 1)
+                            if (step_direction == "down")
                             {
-                                continue;
+                                if (i == house.GetLength(0) - 1)
+                                {
+                                    Console.WriteLine("Robot falnak ütközött lefelé!");
+                                    continue;
+                                }
+                                else if (house[i + 1, j] == "b")
+                                {
+                                    Console.WriteLine("Robot bútornak ütközött lefelé!");
+                                    continue;
+                                }
+                                else
+                                {
+                                    house[i, j] = "-";
+                                    house[i + 1, j] = "r";
+                                }
                             }
-                            else if (house[i + 1, j] == "b")
+                            else if (step_direction == "up")
                             {
-                                continue;
+                                if (i == 0)
+                                {
+                                    Console.WriteLine("Robot falnak ütközött felfelé!");
+                                    continue;
+                                }
+                                else if (house[i - 1, j] == "b")
+                                {
+                                    Console.WriteLine("Robot bútornak ütközött felfelé!");
+                                    continue;
+                                }
+                                else
+                                {
+                                    house[i, j] = "-";
+                                    house[i - 1, j] = "r";
+                                }
                             }
-                            else
+                            else if (step_direction == "right")
                             {
-                                house[i, j] = "-";
-                                house[i + 1, j] = "r";
+                                if (j == house.GetLength(1) - 1)
+                                {
+                                    Console.WriteLine("Robot falnak ütközött jobbra!");
+                                    continue;
+                                }
+                                else if (house[i, j + 1] == "b")
+                                {
+                                    Console.WriteLine("Robot bútornak ütközött jobbra!");
+                                    continue;
+                                }
+                                else
+                                {
+                                    house[i, j] = "-";
+                                    house[i, j + 1] = "r";
+                                }
+                            }
+                            else if (step_direction == "left")
+                            {
+                                if (j == 0)
+                                {
+                                    Console.WriteLine("Robot falnak ütközött balra!");
+                                    continue;
+                                }
+                                else if (house[i, j - 1] == "b")
+                                {
+                                    Console.WriteLine("Robot bútornak ütközött balra!");
+                                    continue;
+                                }
+                                else
+                                { 
+                                    house[i, j] = "-";
+                                    house[i, j - 1] = "r";
+                                }
                             }
                         }
-                        else if (step_direction == "up")
+                        else
                         {
-                            if (i == 0)
-                            {
-                                continue;
-                            }
-                            else if (house[i - 1, j] == "b")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                house[i, j] = "-";
-                                house[i - 1, j] = "r";
-                            }
-                        }
-                        else if (step_direction == "right")
-                        {
-                            if (j == house.GetLength(1) - 1)
-                            {
-                                continue;
-                            }
-                            else if (house[i, j + 1] == "b")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                house[i, j] = "-";
-                                house[i, j + 1] = "r";
-                            }
-                        }
-                        else if (step_direction == "left")
-                        {
-                            if (j == 0)
-                            {
-                                continue;
-                            }
-                            else if (house[i, j - 1] == "b")
-                            {
-                                continue;
-                            }
-                            else
-                            { 
-                                house[i, j] = "-";
-                                house[i, j - 1] = "r";
-                            }
+                            continue;
                         }
                     }
                 }
