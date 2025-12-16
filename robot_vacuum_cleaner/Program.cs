@@ -114,6 +114,9 @@ namespace robot_vacuum_cleaner
                 Console.WriteLine();
             }
 
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine("A továbblépéshez nyomjon meg egy billentyűt!");
             Console.ReadKey();
             Console.Clear();
         }
@@ -169,6 +172,8 @@ namespace robot_vacuum_cleaner
                                 {
                                     house[i, j] = "-";
                                     house[i + 1, j] = "r";
+                                    Console.WriteLine("A robot egyet lefelé lépett!");
+                                    continue;
                                 }
                             }
                             else if (step_direction == "up")
@@ -187,6 +192,8 @@ namespace robot_vacuum_cleaner
                                 {
                                     house[i, j] = "-";
                                     house[i - 1, j] = "r";
+                                    Console.WriteLine("A robot egyet felfelé lépett!");
+                                    continue;
                                 }
                             }
                             else if (step_direction == "right")
@@ -205,6 +212,8 @@ namespace robot_vacuum_cleaner
                                 {
                                     house[i, j] = "-";
                                     house[i, j + 1] = "r";
+                                    Console.WriteLine("A robot egyet jobbra lépett!");
+                                    continue;
                                 }
                             }
                             else if (step_direction == "left")
@@ -223,6 +232,8 @@ namespace robot_vacuum_cleaner
                                 { 
                                     house[i, j] = "-";
                                     house[i, j - 1] = "r";
+                                    Console.WriteLine("A robot egyet balra lépett!");
+                                    continue;
                                 }
                             }
                         }
@@ -233,6 +244,9 @@ namespace robot_vacuum_cleaner
                     }
                 }
 
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine("A továbblépéshez nyomjon meg egy billentyűt!");
                 Console.ReadKey();
                 Console.Clear();
 
@@ -265,12 +279,37 @@ namespace robot_vacuum_cleaner
             } while (!cleaned);
         }
 
+        static bool CheckCleaned(string[,] house)
+        {
+            bool cleaned = false;
+
+            for (int i = 0; i < house.GetLength(0); i++)
+            {
+                for (int j = 0; j < house.GetLength(1); j++)
+                {
+                    if (house[i, j] == "k")
+                    {
+                        cleaned = false;
+                        break;
+                    }
+                }
+            }
+            cleaned = true;
+
+            return cleaned;
+        }
+
         static void Main(string[] args)
         {
             string[,] houseModel = ModelGeneration();
             string[,] house = CreateModel(houseModel);
-            WriteHouse(house);
-            Cleaning(house);
+
+            bool cleaned = CheckCleaned(house);
+            do
+            {
+                WriteHouse(house);
+                Cleaning(house);
+            } while (cleaned == false);
         }
     }
 }
