@@ -84,7 +84,25 @@ namespace robot_vacuum_cleaner
             {
                 for (int j = 0; j < house.GetLength(1); j++)
                 {
-                    Console.Write(house[i, j] + " ");
+                    switch (house[i, j])
+                    {
+                        case "-":
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write(house[i, j] + " ");
+                            break;
+                        case "b":
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write(house[i, j] + " ");
+                            break;
+                        case "k":
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write(house[i, j] + " ");
+                            break;
+                        case "r":
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(house[i, j] + " ");
+                            break;
+                    }
                 }
                 Console.WriteLine();
             }
@@ -100,7 +118,6 @@ namespace robot_vacuum_cleaner
 
             do
             {
-
                 int step = steps.Next(1, 5);
                 string step_direction = "";
 
@@ -201,7 +218,25 @@ namespace robot_vacuum_cleaner
                 {
                     for (int j = 0; j < house.GetLength(1); j++)
                     {
-                        Console.Write(house[i, j] + " ");
+                        switch (house[i, j])
+                        {
+                            case "-":
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(house[i, j] + " ");
+                                break;
+                            case "b":
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.Write(house[i, j] + " ");
+                                break;
+                            case "k":
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(house[i, j] + " ");
+                                break;
+                            case "r":
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write(house[i, j] + " ");
+                                break;
+                        }
                     }
                     Console.WriteLine();
                 }
