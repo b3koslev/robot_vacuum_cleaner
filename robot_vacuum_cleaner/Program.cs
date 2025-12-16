@@ -125,6 +125,7 @@ namespace robot_vacuum_cleaner
         {
             Random steps = new Random();
             bool cleaned = false;
+            int dirty = 0;
 
             do
             {
@@ -168,6 +169,14 @@ namespace robot_vacuum_cleaner
                                     Console.WriteLine("Robot bútornak ütközött lefelé!");
                                     continue;
                                 }
+                                else if (house[i + 1, j] == "k")
+                                {
+                                    dirty++;
+                                    house[i, j] = "-";
+                                    house[i + 1, j] = "r";
+                                    Console.WriteLine("A robot egyet lefelé lépett!");
+                                    continue;
+                                }
                                 else
                                 {
                                     house[i, j] = "-";
@@ -186,6 +195,15 @@ namespace robot_vacuum_cleaner
                                 else if (house[i - 1, j] == "b")
                                 {
                                     Console.WriteLine("Robot bútornak ütközött felfelé!");
+                                    continue;
+                                }
+                                else if (house[i -
+                                    1, j] == "k")
+                                {
+                                    dirty++;
+                                    house[i, j] = "-";
+                                    house[i - 1, j] = "r";
+                                    Console.WriteLine("A robot egyet lefelé lépett!");
                                     continue;
                                 }
                                 else
@@ -208,6 +226,14 @@ namespace robot_vacuum_cleaner
                                     Console.WriteLine("Robot bútornak ütközött jobbra!");
                                     continue;
                                 }
+                                else if (house[i, j + 1] == "k")
+                                {
+                                    dirty++;
+                                    house[i, j] = "-";
+                                    house[i, j + 1] = "r";
+                                    Console.WriteLine("A robot egyet lefelé lépett!");
+                                    continue;
+                                }
                                 else
                                 {
                                     house[i, j] = "-";
@@ -226,6 +252,14 @@ namespace robot_vacuum_cleaner
                                 else if (house[i, j - 1] == "b")
                                 {
                                     Console.WriteLine("Robot bútornak ütközött balra!");
+                                    continue;
+                                }
+                                else if (house[i, j - 1] == "k")
+                                {
+                                    dirty++;
+                                    house[i, j] = "-";
+                                    house[i, j - 1] = "r";
+                                    Console.WriteLine("A robot egyet lefelé lépett!");
                                     continue;
                                 }
                                 else
