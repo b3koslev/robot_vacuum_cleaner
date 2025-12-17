@@ -126,6 +126,7 @@ namespace robot_vacuum_cleaner
             Random steps = new Random();
             bool cleaned = false;
             int dirty = 0;
+            List<string> coordinates = new List<string>();
 
             do
             {
@@ -159,7 +160,7 @@ namespace robot_vacuum_cleaner
                         {
                             if (step_direction == "down")
                             {
-                                if (i == house.GetLength(0) - 1)
+                                if (i == house.GetLength(1) - 1)
                                 {
                                     Console.WriteLine("Robot falnak ütközött lefelé!");
                                     continue;
@@ -172,6 +173,7 @@ namespace robot_vacuum_cleaner
                                 else if (house[i + 1, j] == "k")
                                 {
                                     dirty++;
+                                    coordinates.Add($"{i + 1}, {j}");
                                     house[i, j] = "-";
                                     house[i + 1, j] = "r";
                                     Console.WriteLine("A robot egyet lefelé lépett!");
@@ -187,7 +189,7 @@ namespace robot_vacuum_cleaner
                             }
                             else if (step_direction == "up")
                             {
-                                if (i == 0)
+                                if (i == house.GetLength(1) + 1)
                                 {
                                     Console.WriteLine("Robot falnak ütközött felfelé!");
                                     continue;
@@ -197,10 +199,10 @@ namespace robot_vacuum_cleaner
                                     Console.WriteLine("Robot bútornak ütközött felfelé!");
                                     continue;
                                 }
-                                else if (house[i -
-                                    1, j] == "k")
+                                else if (house[i - 1, j] == "k")
                                 {
                                     dirty++;
+                                    coordinates.Add($"{i - 1}, {j}");
                                     house[i, j] = "-";
                                     house[i - 1, j] = "r";
                                     Console.WriteLine("A robot egyet lefelé lépett!");
@@ -216,7 +218,7 @@ namespace robot_vacuum_cleaner
                             }
                             else if (step_direction == "right")
                             {
-                                if (j == house.GetLength(1) - 1)
+                                if (j == house.GetLength(0) - 1)
                                 {
                                     Console.WriteLine("Robot falnak ütközött jobbra!");
                                     continue;
@@ -229,6 +231,7 @@ namespace robot_vacuum_cleaner
                                 else if (house[i, j + 1] == "k")
                                 {
                                     dirty++;
+                                    coordinates.Add($"{i}, {j + 1}");
                                     house[i, j] = "-";
                                     house[i, j + 1] = "r";
                                     Console.WriteLine("A robot egyet lefelé lépett!");
@@ -244,7 +247,7 @@ namespace robot_vacuum_cleaner
                             }
                             else if (step_direction == "left")
                             {
-                                if (j == 0)
+                                if (j == house.GetLength(0) + 1)
                                 {
                                     Console.WriteLine("Robot falnak ütközött balra!");
                                     continue;
@@ -257,13 +260,14 @@ namespace robot_vacuum_cleaner
                                 else if (house[i, j - 1] == "k")
                                 {
                                     dirty++;
+                                    coordinates.Add($"{i}, {j - 1}");
                                     house[i, j] = "-";
                                     house[i, j - 1] = "r";
                                     Console.WriteLine("A robot egyet lefelé lépett!");
                                     continue;
                                 }
                                 else
-                                { 
+                                {
                                     house[i, j] = "-";
                                     house[i, j - 1] = "r";
                                     Console.WriteLine("A robot egyet balra lépett!");
@@ -277,12 +281,6 @@ namespace robot_vacuum_cleaner
                         }
                     }
                 }
-
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine();
-                Console.WriteLine("A továbblépéshez nyomjon meg egy billentyűt!");
-                Console.ReadKey();
-                Console.Clear();
 
                 for (int i = 0; i < house.GetLength(0); i++)
                 {
@@ -310,7 +308,26 @@ namespace robot_vacuum_cleaner
                     }
                     Console.WriteLine();
                 }
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine("A továbblépéshez nyomjon meg egy billentyűt!");
+                Console.ReadKey();
+                Console.Clear();
+
             } while (!cleaned);
+
+            Console.WriteLine("===========================");
+            Console.WriteLine("\tStatisztika");
+            Console.WriteLine("===========================");
+
+            Console.WriteLine("Koszos cellák száma: " + dirty);
+
+            Console.Write("A koszos cellák koordinátái: ");
+            foreach (string cell in coordinates)
+            {
+                Console.Write($"{cell}; ");
+            }
         }
 
         static bool CheckCleaned(string[,] house)
