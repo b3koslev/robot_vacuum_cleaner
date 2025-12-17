@@ -160,7 +160,7 @@ namespace robot_vacuum_cleaner
                         {
                             if (step_direction == "down")
                             {
-                                if (i == house.GetLength(1) - 1)
+                                if (i == house.GetLength(0) - 1)
                                 {
                                     Console.WriteLine("Robot falnak ütközött lefelé!");
                                     continue;
@@ -189,7 +189,7 @@ namespace robot_vacuum_cleaner
                             }
                             else if (step_direction == "up")
                             {
-                                if (i == house.GetLength(1) + 1)
+                                if (i == 0)
                                 {
                                     Console.WriteLine("Robot falnak ütközött felfelé!");
                                     continue;
@@ -205,7 +205,7 @@ namespace robot_vacuum_cleaner
                                     coordinates.Add($"{i - 1}, {j}");
                                     house[i, j] = "-";
                                     house[i - 1, j] = "r";
-                                    Console.WriteLine("A robot egyet lefelé lépett!");
+                                    Console.WriteLine("A robot egyet felfelé lépett!");
                                     continue;
                                 }
                                 else
@@ -218,7 +218,7 @@ namespace robot_vacuum_cleaner
                             }
                             else if (step_direction == "right")
                             {
-                                if (j == house.GetLength(0) - 1)
+                                if (j == house.GetLength(1) - 1)
                                 {
                                     Console.WriteLine("Robot falnak ütközött jobbra!");
                                     continue;
@@ -234,7 +234,7 @@ namespace robot_vacuum_cleaner
                                     coordinates.Add($"{i}, {j + 1}");
                                     house[i, j] = "-";
                                     house[i, j + 1] = "r";
-                                    Console.WriteLine("A robot egyet lefelé lépett!");
+                                    Console.WriteLine("A robot egyet jobbra lépett!");
                                     continue;
                                 }
                                 else
@@ -247,7 +247,7 @@ namespace robot_vacuum_cleaner
                             }
                             else if (step_direction == "left")
                             {
-                                if (j == house.GetLength(0) + 1)
+                                if (j == 0)
                                 {
                                     Console.WriteLine("Robot falnak ütközött balra!");
                                     continue;
@@ -263,7 +263,7 @@ namespace robot_vacuum_cleaner
                                     coordinates.Add($"{i}, {j - 1}");
                                     house[i, j] = "-";
                                     house[i, j - 1] = "r";
-                                    Console.WriteLine("A robot egyet lefelé lépett!");
+                                    Console.WriteLine("A robot egyet balra lépett!");
                                     continue;
                                 }
                                 else
@@ -293,11 +293,11 @@ namespace robot_vacuum_cleaner
                                 Console.Write(house[i, j] + " ");
                                 break;
                             case "b":
-                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write(house[i, j] + " ");
                                 break;
                             case "k":
-                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.Write(house[i, j] + " ");
                                 break;
                             case "r":
