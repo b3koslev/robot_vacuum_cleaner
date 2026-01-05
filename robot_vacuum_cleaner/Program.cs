@@ -160,12 +160,37 @@ namespace robot_vacuum_cleaner
                     {
                         if (house[i, j] == "r")
                         {
-                            if ((house[i + 1, j] == "b") && (house[i - 1, j] == "b") && 
-                                (house[i, j + 1] == "b") && (house[i, j - 1] == "b") && 
-                                (i != house.GetLength(0)) && (j != house.GetLength(1)) && 
-                                (i != house.GetLength(0) - i) && (j != house.GetLength(1) - j))
+                            if (i == 0 && j == 0)
                             {
-                                Console.WriteLine("A robot nem tud tovább haladni, mivel minden irányban bútor van!");
+                                if (house[i, j + 1] == "b" && house[i + 1, j] == "b")
+                                {
+                                    Console.WriteLine("A robot nem tud mozdulni a bútorok miatt.");
+                                    break;
+                                }
+                            }
+                            else if (i == house.GetLength(0) && j == house.GetLength(1))
+                            {
+                                if (house[i, j - 1] == "b" && house[i - 1, j] == "b")
+                                {
+                                    Console.WriteLine("A robot nem tud mozdulni a bútorok miatt.");
+                                    break;
+                                }
+                            }
+                            else if (i == house.GetLength(0) && j == 0)
+                            {
+                                if (house[i, j + 1] == "b" && house[i - 1, j] == "b")
+                                {
+                                    Console.WriteLine("A robot nem tud mozdulni a bútorok miatt.");
+                                    break;
+                                }
+                            }
+                            else if (i == 0 && j == house.GetLength(1))
+                            {
+                                if (house[i, j - 1] == "b" && house[i + 1, j] == "b")
+                                {
+                                    Console.WriteLine("A robot nem tud mozdulni a bútorok miatt.");
+                                    break;
+                                }
                             }
                             else
                             {
@@ -265,8 +290,47 @@ namespace robot_vacuum_cleaner
                 {
                     if (house[i, j] == "k")
                     {
-                        cleaned = false;
-                        break;
+                        if (i == 0 && j == 0)
+                        {
+                            if (house[i, j + 1] == "b" && house[i + 1, j] == "b")
+                            {
+                                Console.WriteLine("A kosz nem elérhető a bútorok miatt.");
+                                cleaned = true;
+                                break;
+                            }
+                        }
+                        else if (i == house.GetLength(0) && j == house.GetLength(1))
+                        {
+                            if (house[i, j - 1] == "b" && house[i - 1, j] == "b")
+                            {
+                                Console.WriteLine("A kosz nem elérhető a bútorok miatt.");
+                                cleaned = true;
+                                break;
+                            }
+                        }
+                        else if (i == house.GetLength(0) && j == 0)
+                        {
+                            if (house[i, j + 1] == "b" && house[i - 1, j] == "b")
+                            {
+                                Console.WriteLine("A kosz nem elérhető a bútorok miatt.");
+                                cleaned = true;
+                                break;
+                            }
+                        }
+                        else if (i == 0 && j == house.GetLength(1))
+                        {
+                            if (house[i, j - 1] == "b" && house[i + 1, j] == "b")
+                            {
+                                Console.WriteLine("A kosz nem elérhető a bútorok miatt.");
+                                cleaned = true;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            cleaned = false;
+                            break;
+                        }
                     }
                 }
             }
